@@ -1,51 +1,26 @@
+import { useState } from "react";
+
 export function AddItem() {
+  const [name, setName] = useState("");
+
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    console.log(name);
+  };
+
   return (
     <div className="contentContainer">
-      <div>1</div>
-      <div>2</div>
-      <div>3</div>
-      <div>1</div>
-      <div>2</div>
-      <div>3</div>
-      <div>1</div>
-      <div>2</div>
-      <div>3</div>
-      <div>1</div>
-      <div>2</div>
-      <div>3</div>
-      <div>1</div>
-      <div>2</div>
-      <div>3</div>
-      <div>1</div>
-      <div>2</div>
-      <div>3</div>
-      <div>1</div>
-      <div>2</div>
-      <div>3</div>
-      <div>1</div>
-      <div>2</div>
-      <div>3</div>
-      <div>1</div>
-      <div>2</div>
-      <div>3</div>
-      <div>1</div>
-      <div>2</div>
-      <div>3</div>
-      <div>1</div>
-      <div>2</div>
-      <div>3</div>
-      <div>1</div>
-      <div>2</div>
-      <div>3</div>
-      <div>1</div>
-      <div>2</div>
-      <div>3</div>
-      <div>1</div>
-      <div>2</div>
-      <div>3</div>
-      <div>1</div>
-      <div>2</div>
-      <div>3</div>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Name:
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
     </div>
   );
 }

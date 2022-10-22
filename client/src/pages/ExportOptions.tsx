@@ -1,5 +1,5 @@
 import React from "react";
 
 export function ExportOptions() {
-  return <div>ExportOptions</div>;
+  return <div className="contentContainer">ExportOptions</div>;
 }

@@ -1,26 +1,12 @@
 import { useQuery } from "@apollo/client";
 import { GET_ALL_RECORDS } from "../api/requests";
-
-interface record {
-  bowelMovement?: boolean | null;
-  date: Date;
-  id: string;
-  leftBreast?: null;
-  pumpTime?: Number | null;
-  rightBreast?: null;
-  supplementQuantity?: Number | null;
-  supplementType?: boolean | null;
-  time: Date;
-  user_id: string;
-  void?: boolean;
-  vomit_spitUp?: boolean;
-}
+import { record } from "../api/types";
 
 export function Records() {
   const { loading, data, error } = useQuery(GET_ALL_RECORDS);
 
-  if (loading) return <p>loading</p>;
-  if (error) return <p>{`error: ${error}`}</p>;
+  if (loading) return <div className="contentContainer">Loading...</div>;
+  if (error) return <div className="contentContainer">{`error: ${error}`}</div>;
 
   const AllRecords = (recordData: record[]) => {
     return recordData.map((item) => (
@@ -32,7 +18,7 @@ export function Records() {
 
   return (
     <div>
-      <div>Records</div>
+      <div className="contentContainer">Recrds</div>
       <ul>{AllRecords(data?.Record)}</ul>
     </div>
   );

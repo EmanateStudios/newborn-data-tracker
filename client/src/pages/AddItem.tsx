@@ -1,5 +1,51 @@
-import React from "react";
-
 export function AddItem() {
-  return <div>AddItem</div>;
+  return (
+    <div className="contentContainer">
+      <div>1</div>
+      <div>2</div>
+      <div>3</div>
+      <div>1</div>
+      <div>2</div>
+      <div>3</div>
+      <div>1</div>
+      <div>2</div>
+      <div>3</div>
+      <div>1</div>
+      <div>2</div>
+      <div>3</div>
+      <div>1</div>
+      <div>2</div>
+      <div>3</div>
+      <div>1</div>
+      <div>2</div>
+      <div>3</div>
+      <div>1</div>
+      <div>2</div>
+      <div>3</div>
+      <div>1</div>
+      <div>2</div>
+      <div>3</div>
+      <div>1</div>
+      <div>2</div>
+      <div>3</div>
+      <div>1</div>
+      <div>2</div>
+      <div>3</div>
+      <div>1</div>
+      <div>2</div>
+      <div>3</div>
+      <div>1</div>
+      <div>2</div>
+      <div>3</div>
+      <div>1</div>
+      <div>2</div>
+      <div>3</div>
+      <div>1</div>
+      <div>2</div>
+      <div>3</div>
+      <div>1</div>
+      <div>2</div>
+      <div>3</div>
+    </div>
+  );
 }

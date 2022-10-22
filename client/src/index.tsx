@@ -5,10 +5,16 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { BrowserRouter } from "react-router-dom";
+import "./pages/pagestyles/pagestyles.css";
 
 const client = new ApolloClient({
-  // uri: 'https://free-racer-76.hasura.app/v1/graphql',
+  uri: "https://free-racer-76.hasura.app/v1/graphql",
   cache: new InMemoryCache(),
+  headers: {
+    "content-type": "application/json",
+    "x-hasura-admin-secret":
+      "7mbHdpVDMTpIt0WbVsrKSlNNiSaRzfYOQCK3Wdxzgh9lJos2VcGd52QbH6UK1osU",
+  },
 });
 
 const root = ReactDOM.createRoot(

@@ -1,18 +1,15 @@
-// import React from 'react';
-import logo from "./logo.svg";
 import "./App.css";
+import { Route, Routes } from "react-router-dom";
+import { Login, AddItem, ExportOptions, Records } from "./pages";
 
 function App() {
   return (
-    <div className="App">
-      <form>
-        <label>
-          email:
-          <input type="text" name="email" />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
-    </div>
+    <Routes>
+      <Route path="/" element={<Login />} />
+      <Route path="/AddItem" element={<AddItem />} />
+      <Route path="/ExportOptions" element={<ExportOptions />} />
+      <Route path="/Records" element={<Records />} />
+    </Routes>
   );
 }
 

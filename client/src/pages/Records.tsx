@@ -1,7 +1,5 @@
 import React from "react";
 
-function Records() {
+export function Records() {
   return <div>Records</div>;
 }
-
-export default Records;

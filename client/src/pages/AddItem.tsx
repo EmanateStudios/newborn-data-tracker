@@ -1,7 +1,5 @@
 import React from "react";
 
-function AddItem() {
+export function AddItem() {
   return <div>AddItem</div>;
 }
-
-export default AddItem;

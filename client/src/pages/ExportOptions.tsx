@@ -1,5 +1,7 @@
-import React from "react";
-
 export function ExportOptions() {
-  return <div className="contentContainer">ExportOptions</div>;
+  return (
+    <div className="contentContainer">
+      <h1>ExportOptions</h1>
+    </div>
+  );
 }

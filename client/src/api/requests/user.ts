@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const GET_USER_RECORDS = gql`
-  query GetUserRecords($id: string) {
+  query GetUserRecords($id: uuid) {
     User(where: { id: { _eq: $id } }) {
       Records {
         bowelMovement

@@ -20,3 +20,11 @@ export const GET_USER_RECORDS = gql`
     }
   }
 `;
+
+export const GET_USER_BY_EMAIL = gql`
+  query GetUserByEmail($email: String) {
+    User(where: { email: { _eq: $email } }) {
+      id
+    }
+  }
+`;

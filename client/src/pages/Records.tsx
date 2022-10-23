@@ -1,9 +1,9 @@
 import { useQuery } from "@apollo/client";
-import { GET_ALL_RECORDS } from "../api/requests";
+import { GET_USER_RECORDS } from "../api/requests";
 import { record } from "../api/types";
 
 export function Records() {
-  const { loading, data, error } = useQuery(GET_ALL_RECORDS);
+  const { loading, data, error } = useQuery(GET_USER_RECORDS);
 
   if (loading) return <div className="contentContainer">Loading...</div>;
   if (error) return <div className="contentContainer">{`error: ${error}`}</div>;

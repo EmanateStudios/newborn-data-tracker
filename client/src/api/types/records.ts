@@ -1,14 +1,16 @@
+import { DateTime } from "luxon";
+
 export interface record {
-  bowelMovement?: boolean | null;
-  date: Date;
-  id: string;
-  leftBreast?: null;
-  pumpTime?: Number | null;
-  rightBreast?: null;
-  supplementQuantity?: Number | null;
-  supplementType?: boolean | null;
-  time: Date;
-  user_id: string;
-  void?: boolean;
+  date: DateTime;
+  time: any;
+  leftBreast?: number | null | undefined;
+  rightBreast?: number | null | undefined;
+  void?: boolean | null | undefined;
   vomit_spitUp?: boolean;
+  pumpTime?: Number | null | undefined;
+  supplementQuantity?: Number | null | undefined;
+  supplementType?: string | null | undefined;
+  id?: string;
+  user_id: string;
+  bowelMovement?: boolean | null | undefined;
 }

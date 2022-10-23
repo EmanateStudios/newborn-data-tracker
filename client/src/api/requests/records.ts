@@ -18,3 +18,11 @@ export const GET_ALL_RECORDS = gql`
     }
   }
 `;
+
+export const INSERT_RECORD = gql`
+  mutation InsertRecord($objects: [Record_insert_input!]!) {
+    insert_Record(objects: $objects) {
+      affected_rows
+    }
+  }
+`;

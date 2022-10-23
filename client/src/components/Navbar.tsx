@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-import "../pages/pagestyles/pagestyles.css";
 import { TfiPlus, TfiExport, TfiRulerPencil } from "react-icons/tfi";
 
 export function Navbar() {
@@ -11,8 +10,8 @@ export function Navbar() {
             {({ isActive }) => {
               return (
                 <TfiRulerPencil
-                  size={"3rem"}
-                  color={isActive ? "black" : "silver"}
+                  size={"1.5rem"}
+                  color={isActive ? "rgba(19, 14, 46, 1.0)" : "silver"}
                 />
               );
             }}
@@ -22,7 +21,10 @@ export function Navbar() {
           <NavLink to="AddItem">
             {({ isActive }) => {
               return (
-                <TfiPlus size={"3rem"} color={isActive ? "black" : "silver"} />
+                <TfiPlus
+                  size={"1.5rem"}
+                  color={isActive ? "rgba(19, 14, 46, 1.0)" : "silver"}
+                />
               );
             }}
           </NavLink>
@@ -32,8 +34,8 @@ export function Navbar() {
             {({ isActive }) => {
               return (
                 <TfiExport
-                  size={"3rem"}
-                  color={isActive ? "black" : "silver"}
+                  size={"1.5rem"}
+                  color={isActive ? "rgba(19, 14, 46, 1.0)" : "silver"}
                 />
               );
             }}

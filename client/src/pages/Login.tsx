@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { GET_USER_BY_EMAIL } from "../api/requests";
 import { useLazyQuery } from "@apollo/client";
 

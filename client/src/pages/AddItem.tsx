@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { INSERT_RECORD } from "../api/requests/records";
 import { record } from "../api/types";
@@ -9,6 +9,7 @@ import { FaPoo } from "react-icons/fa";
 import { BsFillDropletFill, BsHourglassSplit } from "react-icons/bs";
 import { GiVomiting, GiChemicalTank } from "react-icons/gi";
 import { IoIosBeaker, IoIosTimer } from "react-icons/io";
+
 export function AddItem() {
   const currentDate = DateTime.now();
   // const currentTime = currentDate.toLocaleString(DateTime.TIME_SIMPLE);
@@ -45,6 +46,10 @@ export function AddItem() {
       },
     });
   };
+
+  useEffect(() => {
+    const id = localStorage.getItem("id");
+  });
 
   const initialValues: record = {
     date: currentDate,

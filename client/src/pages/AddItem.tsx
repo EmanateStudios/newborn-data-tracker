@@ -6,9 +6,9 @@ import { DateTime } from "luxon";
 // --- ICONS ---
 import { FiCalendar, FiWatch } from "react-icons/fi";
 import { FaPoo } from "react-icons/fa";
-import { BsFillDropletFill } from "react-icons/bs";
-import { GiVomiting } from "react-icons/gi";
-
+import { BsFillDropletFill, BsHourglassSplit } from "react-icons/bs";
+import { GiVomiting, GiChemicalTank } from "react-icons/gi";
+import { IoIosBeaker, IoIosTimer } from "react-icons/io";
 export function AddItem() {
   const currentDate = DateTime.now();
   // const currentTime = currentDate.toLocaleString(DateTime.TIME_SIMPLE);
@@ -20,6 +20,7 @@ export function AddItem() {
       onCompleted: (completedData) => {
         console.log(`SUCCESSFUL RECORD INSERTION`);
         console.log(completedData);
+        setRecord(initialValues);
       },
     }
   );
@@ -30,7 +31,7 @@ export function AddItem() {
       variables: {
         objects: {
           date: record.date,
-          time: record.time,
+          time: record.time.toLocaleString(DateTime.TIME_SIMPLE),
           leftBreast: record.leftBreast || 0,
           rightBreast: record.rightBreast || 0,
           void: record.void || false,
@@ -66,14 +67,6 @@ export function AddItem() {
     const valueUpdate =
       update.type === "checkbox" ? update.checked : update.value;
 
-    // console.log(update);
-    // console.log(update.type);
-    // console.log(keyUpdate);
-    console.log(valueUpdate);
-    console.log({
-      ...record,
-      [keyUpdate]: valueUpdate,
-    });
     setRecord({
       ...record,
       [keyUpdate]: valueUpdate,
@@ -85,110 +78,266 @@ export function AddItem() {
       <h1>Add Record</h1>
       <form onSubmit={handleSubmit}>
         {/*==================== DATE AND TIME ====================*/}
-        {/* ---- DATE ---- */}
-        <div style={{ display: "flex" }}>
-          <div
-            className="checkBoxContainer"
-            style={{
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <FiCalendar size={"25px"} style={{ marginRight: "15px" }} />
-            <input
-              type="date"
-              name="date"
-              value={`${record.date.toFormat("yyyy-MM-dd")}`}
-              onChange={(e) => updateRecordState(e.target)}
-              style={{ width: "30vw" }}
-            />
-          </div>
-          {/* ---- TIME ---- */}
-          <div
-            className="checkBoxContainer"
-            style={{
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
-            <FiWatch size={"25px"} style={{ marginRight: "15px" }} />
-            <input
-              type="time"
-              name="time"
-              value={`${record.time.toLocaleString(DateTime.TIME_24_SIMPLE)}`}
-              onChange={(e) => updateRecordState(e.target)}
-              style={{ width: "30vw" }}
-            />
+        <div
+          className="cards"
+          style={{
+            border: "1px solid rgb(200,200,200)",
+            paddingBottom: "10px",
+            paddingLeft: "10px",
+            borderRadius: "5px",
+            backgroundColor: "rgb(240,240,240)",
+          }}
+        >
+          <h2>Date and Time</h2>
+          <div style={{ display: "flex" }}>
+            {/* ---- DATE ---- */}
+            <div
+              className="checkBoxContainer"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                backgroundColor: "white",
+              }}
+            >
+              <FiCalendar size={"25px"} style={{ marginRight: "15px" }} />
+              <input
+                type="date"
+                name="date"
+                value={`${record.date.toFormat("yyyy-MM-dd")}`}
+                onChange={(e) => updateRecordState(e.target)}
+                style={{ width: "30vw" }}
+              />
+            </div>
+            {/* ---- TIME ---- */}
+            <div
+              className="checkBoxContainer"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                backgroundColor: "white",
+              }}
+            >
+              <FiWatch size={"25px"} style={{ marginRight: "15px" }} />
+              <input
+                type="time"
+                name="time"
+                value={`${record.time.toLocaleString(DateTime.TIME_24_SIMPLE)}`}
+                onChange={(e) => updateRecordState(e.target)}
+                style={{ width: "30vw" }}
+              />
+            </div>
           </div>
         </div>
         {/*==================== PEE AND POO ====================*/}
         <div
+          className="cards"
           style={{
-            display: "flex",
+            border: "1px solid rgb(200,200,200)",
             marginTop: "20px",
-            flexGrow: 1,
-            justifyContent: "space-between",
+            paddingBottom: "10px",
+            paddingLeft: "10px",
+            borderRadius: "5px",
+            backgroundColor: "rgb(240,240,240)",
           }}
         >
-          {/* ---- PEE ---- */}
+          <h2>Excretions</h2>
           <div
-            className="checkBoxContainer"
             style={{
               display: "flex",
-              justifyContent: "center",
+              marginTop: "20px",
+              flexGrow: 1,
+              justifyContent: "space-between",
             }}
           >
-            <BsFillDropletFill
-              size={"25px"}
-              style={{ color: "rgb(153,163,34)" }}
-            />
-            <input
-              type="checkbox"
-              name="void"
-              checked={record.void}
-              onChange={(e) => updateRecordState(e.target)}
+            {/* ---- PEE ---- */}
+            <div
+              className="checkBoxContainer"
               style={{
-                width: "10vw",
+                display: "flex",
+                justifyContent: "center",
+                backgroundColor: "white",
               }}
-            />
+            >
+              <BsFillDropletFill
+                size={"25px"}
+                style={{ color: "rgb(153,163,34)" }}
+              />
+              <input
+                type="checkbox"
+                name="void"
+                checked={record.void}
+                onChange={(e) => updateRecordState(e.target)}
+                style={{
+                  width: "10vw",
+                }}
+              />
+            </div>
+            {/* ---- POO ---- */}
+            <div
+              className="checkBoxContainer"
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                backgroundColor: "white",
+              }}
+            >
+              <FaPoo size={"25px"} style={{ color: "rgb(122, 72, 6)" }} />
+              <input
+                type="checkbox"
+                name="bowelMovement"
+                checked={record.bowelMovement}
+                onChange={(e) => updateRecordState(e.target)}
+                style={{ width: "10vw" }}
+              />
+            </div>
+            {/* ---- SPIT UP / VOMIT ---- */}
+            <div
+              className="checkBoxContainer"
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                backgroundColor: "white",
+              }}
+            >
+              <GiVomiting size={"25px"} style={{ color: "rgb(17, 84, 35)" }} />
+              <input
+                type="checkbox"
+                name="vomit_spitUp"
+                checked={record.vomit_spitUp}
+                onChange={(e) => updateRecordState(e.target)}
+                style={{ width: "10vw" }}
+              />
+            </div>
           </div>
-          {/* ---- POO ---- */}
+        </div>
+        {/*==================== BOOBIES / FEEDING TIMES====================*/}
+        <div
+          className="cards"
+          style={{
+            marginTop: "20px",
+            paddingBottom: "10px",
+            paddingLeft: "10px",
+            borderRadius: "5px",
+          }}
+        >
+          <h2>Feeding Times (minutes)</h2>
+          <div style={{ display: "flex" }}>
+            {/* ---- LEFT BOOB TIME ---- */}
+            <div
+              className="checkBoxContainer"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                backgroundColor: "white",
+              }}
+            >
+              <p style={{ margin: "0px 10px" }}>L</p>
+              <BsHourglassSplit size={"20px"} color={"rgb(171, 104, 65)"} />
+              <input
+                type="input"
+                name="leftBreast"
+                value={record.leftBreast}
+                onChange={(e) => updateRecordState(e.target)}
+                style={{ width: "20vw", marginLeft: "10px" }}
+              />
+            </div>
+            {/* ---- RIGHT BOOB TIME ---- */}
+            <div
+              className="checkBoxContainer"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                backgroundColor: "white",
+              }}
+            >
+              <p style={{ margin: "0px 10px" }}>R</p>
+              <BsHourglassSplit size={"20px"} color={"rgb(171, 104, 65)"} />
+              <input
+                type="input"
+                name="rightBreast"
+                value={record.rightBreast}
+                onChange={(e) => updateRecordState(e.target)}
+                style={{ width: "20vw", marginLeft: "10px" }}
+              />
+            </div>
+          </div>
+        </div>
+        {/*==================== SUPPLEMENTALS ====================*/}
+        <div
+          className="cards"
+          style={{
+            marginTop: "20px",
+            paddingBottom: "10px",
+            paddingLeft: "10px",
+            borderRadius: "5px",
+          }}
+        >
+          <h2>Supplementals</h2>
+          {/* ---- TYPE OF SUPPLEMENT (IE. FORMULA) ---- */}
           <div
             className="checkBoxContainer"
             style={{
               display: "flex",
-              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "white",
+              marginBottom: "10px",
             }}
           >
-            <FaPoo size={"25px"} style={{ color: "rgb(122, 72, 6)" }} />
+            <p style={{ margin: "0px 10px" }}>Type</p>
+            <GiChemicalTank size={"20px"} color={"rgb(171, 104, 65)"} />
             <input
-              type="checkbox"
-              name="bowelMovement"
-              checked={record.bowelMovement}
+              type="input"
+              placeholder="ie. formula (optional)"
+              name="supplementType"
+              value={record.supplementType}
               onChange={(e) => updateRecordState(e.target)}
-              style={{ width: "10vw" }}
+              style={{ margin: "0px 10px", display: "flex", flexGrow: 1 }}
             />
           </div>
-          {/* ---- SPIT UP / VOMIT ---- */}
+          {/* ---- SUPPLEMENT QUANTITY ---- */}
           <div
             className="checkBoxContainer"
             style={{
               display: "flex",
-              justifyContent: "center",
+              alignItems: "center",
+              backgroundColor: "white",
+              marginBottom: "10px",
             }}
           >
-            <GiVomiting size={"25px"} style={{ color: "rgb(17, 84, 35)" }} />
+            <p style={{ margin: "0px 10px" }}>Qty (ml)</p>
+            <IoIosBeaker size={"20px"} color={"rgb(171, 104, 65)"} />
             <input
-              type="checkbox"
-              name="vomit_spitUp"
-              checked={record.vomit_spitUp}
+              type="input"
+              placeholder="quantity in ml (optional)"
+              name="supplementQuantity"
+              value={record.supplementQuantity}
               onChange={(e) => updateRecordState(e.target)}
-              style={{ width: "10vw" }}
+              style={{ margin: "0px 10px", display: "flex", flexGrow: 1 }}
+            />
+          </div>
+          {/* ---- PUMP TIME ---- */}
+          <div
+            className="checkBoxContainer"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              backgroundColor: "white",
+              marginBottom: "10px",
+            }}
+          >
+            <p style={{ margin: "0px 10px" }}>Pump (min)</p>
+            <IoIosTimer size={"20px"} color={"rgb(171, 104, 65)"} />
+            <input
+              type="input"
+              placeholder="time in minutes (optional)"
+              name="pumpTime"
+              value={record.pumpTime}
+              onChange={(e) => updateRecordState(e.target)}
+              style={{ margin: "0px 10px", display: "flex", flexGrow: 1 }}
             />
           </div>
         </div>
-        <br />
-        <br />
+        {/*==================== SUBMIT ====================*/}
         <div style={{ textAlign: "center" }}>
           <input type="submit" value="Submit" />
         </div>

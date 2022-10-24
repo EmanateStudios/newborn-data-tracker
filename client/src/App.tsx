@@ -10,6 +10,7 @@ function App() {
         <Route path="/AddItem" element={<AddItem />} />
         <Route path="/ExportOptions" element={<ExportOptions />} />
         <Route path="/Records" element={<Records />} />
+        <Route path="/Login" element={<Login />} />
       </Routes>
       <Navbar />
     </div>

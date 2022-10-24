@@ -1,4 +1,5 @@
 import { useQuery } from "@apollo/client";
+import { useEffect } from "react";
 import { GET_USER_RECORDS } from "../api/requests";
 import { record } from "../api/types";
 
@@ -8,6 +9,16 @@ export function Records() {
       id: "d38f79c5-6814-45f5-ac7a-5fca7979fd89",
     },
   });
+
+  // useEffect(() => {
+  //   const userId = localStorage.getItem("id");
+  //   if (userId) {
+  //   getUserRecords({
+  //     variables:{
+  //       id
+  //     }
+  //   })
+  // }, []);
 
   if (loading) return <div className="contentContainer">Loading...</div>;
   if (error) return <div className="contentContainer">{`error: ${error}`}</div>;
@@ -26,7 +37,7 @@ export function Records() {
       <div className="contentContainer">
         <h1>Records</h1>
       </div>
-      <ul>{AllRecords(data?.User[0]?.Records)}</ul>
+      <ul>{AllRecords(data?.Record)}</ul>
     </div>
   );
 }

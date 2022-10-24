@@ -1,22 +1,19 @@
 import { gql } from "@apollo/client";
 
 export const GET_USER_RECORDS = gql`
-  query GetUserRecords($id: uuid) {
-    User(where: { id: { _eq: $id } }) {
-      Records {
-        bowelMovement
-        date
-        id
-        leftBreast
-        pumpTime
-        rightBreast
-        supplementQuantity
-        supplementType
-        time
-        user_id
-        void
-        vomit_spitUp
-      }
+  query GET_USER_RECORDS($id: uuid) {
+    Record(where: { User: { id: { _eq: $id } } }) {
+      id
+      bowelMovement
+      date
+      leftBreast
+      pumpTime
+      rightBreast
+      supplementQuantity
+      supplementType
+      time
+      void
+      vomit_spitUp
     }
   }
 `;

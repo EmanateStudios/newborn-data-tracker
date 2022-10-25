@@ -1,42 +1,28 @@
 import { useQuery } from "@apollo/client";
-import { useEffect } from "react";
+import { RecordBox } from "../components/RecordBox";
 import { GET_USER_RECORDS } from "../api/requests";
 import { record } from "../api/types";
 
 export function Records() {
+  const userId = localStorage.getItem("id");
+
   const { loading, data, error } = useQuery(GET_USER_RECORDS, {
     variables: {
-      id: "d38f79c5-6814-45f5-ac7a-5fca7979fd89",
+      id: userId,
     },
   });
-
-  // useEffect(() => {
-  //   const userId = localStorage.getItem("id");
-  //   if (userId) {
-  //   getUserRecords({
-  //     variables:{
-  //       id
-  //     }
-  //   })
-  // }, []);
 
   if (loading) return <div className="contentContainer">Loading...</div>;
   if (error) return <div className="contentContainer">{`error: ${error}`}</div>;
 
   const AllRecords = (recordData: record[]) => {
-    console.log(recordData);
-    return recordData.map((item) => (
-      <li key={item.id}>{`${item.date}, poop? : ${
-        item.bowelMovement ? "yup" : "not yet"
-      }`}</li>
-    ));
+    return recordData.map((item) => <RecordBox record={item} key={item.id} />);
   };
 
   return (
-    <div>
-      <div className="contentContainer">
-        <h1>Records</h1>
-      </div>
+    <div className="contentContainer">
+      <h1>Records</h1>
+
       <ul>{AllRecords(data?.Record)}</ul>
     </div>
   );

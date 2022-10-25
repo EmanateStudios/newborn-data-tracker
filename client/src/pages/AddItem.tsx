@@ -12,7 +12,7 @@ import { IoIosBeaker, IoIosTimer } from "react-icons/io";
 
 export function AddItem() {
   const currentDate = DateTime.now();
-  const currentTime = DateTime.now();
+  const currentTime = DateTime.local();
 
   const [addRecordToUser, { loading, data, error }] = useMutation(
     INSERT_RECORD,
@@ -52,12 +52,6 @@ export function AddItem() {
               id: userId,
             },
           });
-          console.log(`CACHE RECORD`);
-          console.log(Record);
-          console.log(`ADDED DATA RECORD`);
-          console.log(data.insert_Record.returning[0]);
-          console.log(`COMBINED`);
-          console.log([data.insert_Record.returning[0], ...Record]);
 
           cache.writeQuery({
             query: GET_USER_RECORDS,
@@ -190,10 +184,7 @@ export function AddItem() {
                   backgroundColor: "white",
                 }}
               >
-                <BsFillDropletFill
-                  size={"25px"}
-                  style={{ color: "rgb(153,163,34)" }}
-                />
+                <BsFillDropletFill size={"25px"} color="rgb(153,163,34)" />
                 <input
                   type="checkbox"
                   name="void"
@@ -213,7 +204,7 @@ export function AddItem() {
                   backgroundColor: "white",
                 }}
               >
-                <FaPoo size={"25px"} style={{ color: "rgb(122, 72, 6)" }} />
+                <FaPoo size={"25px"} color="rgb(122, 72, 6)" />
                 <input
                   type="checkbox"
                   name="bowelMovement"

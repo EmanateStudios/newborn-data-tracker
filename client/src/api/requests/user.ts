@@ -2,7 +2,10 @@ import { gql } from "@apollo/client";
 
 export const GET_USER_RECORDS = gql`
   query GET_USER_RECORDS($id: uuid) {
-    Record(where: { User: { id: { _eq: $id } } }) {
+    Record(
+      where: { User: { id: { _eq: $id } } }
+      order_by: { date: desc, time: desc }
+    ) {
       id
       bowelMovement
       date

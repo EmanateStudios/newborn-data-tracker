@@ -10,7 +10,7 @@ import { BsFillDropletFill, BsHourglassSplit } from "react-icons/bs";
 import { GiVomiting, GiChemicalTank } from "react-icons/gi";
 import { IoIosBeaker, IoIosTimer } from "react-icons/io";
 
-export function AddItem() {
+export function EditItem() {
   const currentDate = DateTime.now();
   const currentTime = DateTime.local();
 
@@ -99,7 +99,7 @@ export function AddItem() {
   return (
     <>
       <div className="contentContainer">
-        <h1>Add Record</h1>
+        <h1>Edit Record</h1>
         <form onSubmit={handleSubmit}>
           {/*==================== DATE AND TIME ====================*/}
           <div
@@ -184,7 +184,7 @@ export function AddItem() {
                   backgroundColor: "white",
                 }}
               >
-                <BsFillDropletFill size={"25px"} color="rgb(209, 180, 50)" />
+                <BsFillDropletFill size={"25px"} color="rgb(153,163,34)" />
                 <input
                   type="checkbox"
                   name="void"

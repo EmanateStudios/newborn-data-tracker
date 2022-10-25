@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 // --- ICONS ---
 import { FaPoo } from "react-icons/fa";
 import { BsFillDropletFill } from "react-icons/bs";
@@ -12,33 +13,35 @@ export function RecordBox(record: any) {
   });
 
   return (
-    <div className="recordBox">
-      <ul>
-        <li>{`${rec.date.slice(5)}`}</li>
-        <li>{`${rec.time.slice(0, 5)}`}</li>
-        {rec.void && (
-          <li>
-            <BsFillDropletFill size={"25px"} color="rgb(153,163,34)" />
-          </li>
-        )}
-        {rec.bowelMovement && (
-          <li>
-            <FaPoo size={"25px"} color="rgb(122, 72, 6)" />
-          </li>
-        )}
-        {rec.vomit_spitUp && (
-          <li>
-            <GiVomiting size={"25px"} color="rgb(17, 84, 35)" />
-          </li>
-        )}
-        {rec.leftBreast > 0 && <li>{`LB: ${rec.leftBreast}`}</li>}
-        {rec.rightBreast > 0 && <li>{`${rec.rightBreast}`}</li>}
-        {rec.supplementQuantity > 0 && (
-          <li>{`SupQty: ${rec.supplementQuantity}`}</li>
-        )}
-        {rec.supplementType && <li>{`SupType: ${rec.supplementType}`}</li>}
-        {rec.pumpTime > 0 && <li>{`PumpTm: ${rec.pumpTime}`}</li>}
-      </ul>
-    </div>
+    <Link to={`/EditItem/${rec.id}`}>
+      <div className="recordBox">
+        <ul>
+          <li>{`${rec.date.slice(5)}`}</li>
+          <li>{`${rec.time.slice(0, 5)}`}</li>
+          {rec.void && (
+            <li style={{ width: "40px" }}>
+              <BsFillDropletFill size={"25px"} color="rgb(209, 180, 50)" />
+            </li>
+          )}
+          {rec.bowelMovement && (
+            <li style={{ width: "40px" }}>
+              <FaPoo size={"25px"} color="rgb(122, 72, 6)" />
+            </li>
+          )}
+          {rec.vomit_spitUp && (
+            <li style={{ width: "40px" }}>
+              <GiVomiting size={"25px"} color="rgb(17, 84, 35)" />
+            </li>
+          )}
+          {rec.leftBreast > 0 && <li>{`LBreast: ${rec.leftBreast}`}</li>}
+          {rec.rightBreast > 0 && <li>{`RBreast: ${rec.rightBreast}`}</li>}
+          {rec.supplementQuantity > 0 && (
+            <li>{`SupQty: ${rec.supplementQuantity}`}</li>
+          )}
+          {rec.supplementType && <li>{`SupType: ${rec.supplementType}`}</li>}
+          {rec.pumpTime > 0 && <li>{`PumpTm: ${rec.pumpTime}`}</li>}
+        </ul>
+      </div>
+    </Link>
   );
 }

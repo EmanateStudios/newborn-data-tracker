@@ -2,6 +2,8 @@ import { useQuery } from "@apollo/client";
 import { RecordBox } from "../components/RecordBox";
 import { GET_USER_RECORDS } from "../api/requests";
 import { record } from "../api/types";
+// --- loader
+import loader from "../imgs/loader.gif";
 
 export function Records() {
   const userId = localStorage.getItem("id");
@@ -12,7 +14,16 @@ export function Records() {
     },
   });
 
-  if (loading) return <div className="contentContainer">Loading...</div>;
+  if (loading)
+    return (
+      <div className="contentContainer">
+        <img
+          src={loader}
+          alt="Loading..."
+          style={{ width: "90vw", alignSelf: "center" }}
+        />
+      </div>
+    );
   if (error) return <div className="contentContainer">{`error: ${error}`}</div>;
 
   const AllRecords = (recordData: record[]) => {

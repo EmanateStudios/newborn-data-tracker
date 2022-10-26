@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/newborn-data-tracker/static/css/main.c8c3d2a5.css",
-    "main.js": "/newborn-data-tracker/static/js/main.3575f19a.js",
+    "main.js": "/newborn-data-tracker/static/js/main.fa6d24f9.js",
     "static/js/787.c4e7f8f9.chunk.js": "/newborn-data-tracker/static/js/787.c4e7f8f9.chunk.js",
     "index.html": "/newborn-data-tracker/index.html",
     "main.c8c3d2a5.css.map": "/newborn-data-tracker/static/css/main.c8c3d2a5.css.map",
-    "main.3575f19a.js.map": "/newborn-data-tracker/static/js/main.3575f19a.js.map",
+    "main.fa6d24f9.js.map": "/newborn-data-tracker/static/js/main.fa6d24f9.js.map",
     "787.c4e7f8f9.chunk.js.map": "/newborn-data-tracker/static/js/787.c4e7f8f9.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c8c3d2a5.css",
-    "static/js/main.3575f19a.js"
+    "static/js/main.fa6d24f9.js"
   ]
 }

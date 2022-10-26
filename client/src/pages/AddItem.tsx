@@ -50,22 +50,26 @@ export function AddItem() {
           },
         },
         update(cache, { data }) {
-          const { Record }: any = cache.readQuery({
-            query: GET_USER_RECORDS,
-            variables: {
-              id: userId,
-            },
-          });
+          try {
+            const { Record }: any = cache.readQuery({
+              query: GET_USER_RECORDS,
+              variables: {
+                id: userId,
+              },
+            });
 
-          cache.writeQuery({
-            query: GET_USER_RECORDS,
-            data: {
-              Record: [data.insert_Record.returning[0], ...Record],
-            },
-            variables: {
-              id: userId,
-            },
-          });
+            cache.writeQuery({
+              query: GET_USER_RECORDS,
+              data: {
+                Record: [data.insert_Record.returning[0], ...Record],
+              },
+              variables: {
+                id: userId,
+              },
+            });
+          } catch (err) {
+            console.log(`cannot manipulate cache at this time, error:${err}`);
+          }
         },
       });
     } else {

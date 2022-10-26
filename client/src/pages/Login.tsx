@@ -1,24 +1,33 @@
 import { useState, useEffect } from "react";
 import { GET_USER_BY_EMAIL } from "../api/requests";
 import { useLazyQuery } from "@apollo/client";
+import { Modal } from "../components/Modal";
 
 export function Login() {
   const [email, setEmail] = useState("");
+  const [modalState, setModalState] = useState(false);
+  const [message, setMessage] = useState("");
+  const [title, setTitle] = useState("");
 
-  const [getUser, { loading, data, error }] = useLazyQuery(GET_USER_BY_EMAIL, {
+  const [getUser] = useLazyQuery(GET_USER_BY_EMAIL, {
     onCompleted: (completedData) => {
-      console.log(completedData.User.length);
       if (completedData.User.length === 0) {
-        console.log("no data");
+        setMessage(
+          "Sorry we cannot find an account with this email. Please check the spelling and try again"
+        );
+        setTitle("Error");
+        setModalState(true);
       } else {
         localStorage.setItem("id", completedData.User[0].id);
+        setMessage("Login successful. You can now add records to your account");
+        setTitle("Success!");
+        setModalState(true);
       }
     },
   });
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    console.log(email);
     getUser({
       variables: { email },
     });
@@ -26,6 +35,12 @@ export function Login() {
 
   return (
     <div className="contentContainer">
+      <Modal
+        state={modalState}
+        setState={setModalState}
+        title={title}
+        message={message}
+      />
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <div

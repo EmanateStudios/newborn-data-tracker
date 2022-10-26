@@ -1,13 +1,13 @@
 export interface record {
   date: any;
   time: any;
-  leftBreast?: number | undefined;
-  rightBreast?: number | undefined;
+  leftBreast?: number | string;
+  rightBreast?: number | string;
   void: boolean;
   vomit_spitUp?: boolean;
-  pumpTime?: number | undefined;
-  supplementQuantity?: number | undefined;
-  supplementType?: string | undefined;
+  pumpTime?: number | string;
+  supplementQuantity?: number | string;
+  supplementType?: string | string;
   id?: string;
   user_id: string;
   bowelMovement?: boolean;

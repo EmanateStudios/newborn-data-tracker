@@ -76,12 +76,12 @@ export function AddItem() {
   const initialValues: record = {
     date: currentDate.toFormat("yyyy-MM-dd"),
     time: currentTime,
-    leftBreast: 0,
-    rightBreast: 0,
+    leftBreast: "",
+    rightBreast: "",
     void: false,
     vomit_spitUp: false,
-    pumpTime: 0,
-    supplementQuantity: 0,
+    pumpTime: "",
+    supplementQuantity: "",
     supplementType: "",
     user_id: "",
     bowelMovement: false,
@@ -268,9 +268,12 @@ export function AddItem() {
                 }}
               >
                 <p style={{ margin: "0px 10px" }}>L</p>
-                <BsHourglassSplit size={"20px"} color={"rgb(171, 104, 65)"} />
+                <BsHourglassSplit size={"20px"} color={"rgb(3, 144, 252)"} />
                 <input
                   type="input"
+                  placeholder="ie. 15"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
                   name="leftBreast"
                   value={record.leftBreast}
                   onChange={(e) => updateRecordState(e.target)}
@@ -287,10 +290,13 @@ export function AddItem() {
                 }}
               >
                 <p style={{ margin: "0px 10px" }}>R</p>
-                <BsHourglassSplit size={"20px"} color={"rgb(171, 104, 65)"} />
+                <BsHourglassSplit size={"20px"} color={"rgb(3, 144, 252)"} />
                 <input
                   type="input"
                   name="rightBreast"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  placeholder="ie. 15"
                   value={record.rightBreast}
                   onChange={(e) => updateRecordState(e.target)}
                   style={{ width: "20vw", marginLeft: "10px" }}
@@ -320,7 +326,7 @@ export function AddItem() {
               }}
             >
               <p style={{ margin: "0px 10px" }}>Type</p>
-              <GiChemicalTank size={"20px"} color={"rgb(171, 104, 65)"} />
+              <GiChemicalTank size={"20px"} color={"rgb(3, 144, 252)"} />
               <input
                 type="input"
                 placeholder="ie. formula (optional)"
@@ -341,10 +347,12 @@ export function AddItem() {
               }}
             >
               <p style={{ margin: "0px 10px" }}>Qty (ml)</p>
-              <IoIosBeaker size={"20px"} color={"rgb(171, 104, 65)"} />
+              <IoIosBeaker size={"20px"} color={"rgb(3, 144, 252)"} />
               <input
                 type="input"
                 placeholder="quantity in ml (optional)"
+                inputMode="numeric"
+                pattern="[0-9]*"
                 name="supplementQuantity"
                 value={record.supplementQuantity}
                 onChange={(e) => updateRecordState(e.target)}
@@ -362,11 +370,13 @@ export function AddItem() {
               }}
             >
               <p style={{ margin: "0px 10px" }}>Pump (min)</p>
-              <IoIosTimer size={"20px"} color={"rgb(171, 104, 65)"} />
+              <IoIosTimer size={"20px"} color={"rgb(3, 144, 252)"} />
               <input
                 type="input"
                 placeholder="time in minutes (optional)"
                 name="pumpTime"
+                inputMode="numeric"
+                pattern="[0-9]*"
                 value={record.pumpTime}
                 onChange={(e) => updateRecordState(e.target)}
                 style={{ margin: "0px 10px", display: "flex", flexGrow: 1 }}

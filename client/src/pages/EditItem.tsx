@@ -40,13 +40,13 @@ export function EditItem() {
   const initialValues: record = {
     date: datify.toFormat("yyyy-MM-dd"),
     time,
-    leftBreast,
-    rightBreast,
+    leftBreast: leftBreast || "",
+    rightBreast: rightBreast || "",
     void: location.state.void,
     vomit_spitUp,
-    pumpTime,
-    supplementQuantity,
-    supplementType,
+    pumpTime: pumpTime || "",
+    supplementQuantity: supplementQuantity || "",
+    supplementType: supplementType || "",
     user_id,
     bowelMovement,
   };
@@ -344,10 +344,13 @@ export function EditItem() {
                 }}
               >
                 <p style={{ margin: "0px 10px" }}>L</p>
-                <BsHourglassSplit size={"20px"} color={"rgb(171, 104, 65)"} />
+                <BsHourglassSplit size={"20px"} color={"rgb(3, 144, 252)"} />
                 <input
                   type="input"
                   name="leftBreast"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  placeholder="ie. 15"
                   value={record.leftBreast}
                   onChange={(e) => updateRecordState(e.target)}
                   style={{ width: "20vw", marginLeft: "10px" }}
@@ -363,10 +366,13 @@ export function EditItem() {
                 }}
               >
                 <p style={{ margin: "0px 10px" }}>R</p>
-                <BsHourglassSplit size={"20px"} color={"rgb(171, 104, 65)"} />
+                <BsHourglassSplit size={"20px"} color={"rgb(3, 144, 252)"} />
                 <input
                   type="input"
                   name="rightBreast"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  placeholder="ie. 15"
                   value={record.rightBreast}
                   onChange={(e) => updateRecordState(e.target)}
                   style={{ width: "20vw", marginLeft: "10px" }}
@@ -396,7 +402,7 @@ export function EditItem() {
               }}
             >
               <p style={{ margin: "0px 10px" }}>Type</p>
-              <GiChemicalTank size={"20px"} color={"rgb(171, 104, 65)"} />
+              <GiChemicalTank size={"20px"} color={"rgb(3, 144, 252)"} />
               <input
                 type="input"
                 placeholder="ie. formula (optional)"
@@ -417,11 +423,13 @@ export function EditItem() {
               }}
             >
               <p style={{ margin: "0px 10px" }}>Qty (ml)</p>
-              <IoIosBeaker size={"20px"} color={"rgb(171, 104, 65)"} />
+              <IoIosBeaker size={"20px"} color={"rgb(3, 144, 252)"} />
               <input
                 type="input"
                 placeholder="quantity in ml (optional)"
                 name="supplementQuantity"
+                inputMode="numeric"
+                pattern="[0-9]*"
                 value={record.supplementQuantity}
                 onChange={(e) => updateRecordState(e.target)}
                 style={{ margin: "0px 10px", display: "flex", flexGrow: 1 }}
@@ -438,11 +446,13 @@ export function EditItem() {
               }}
             >
               <p style={{ margin: "0px 10px" }}>Pump (min)</p>
-              <IoIosTimer size={"20px"} color={"rgb(171, 104, 65)"} />
+              <IoIosTimer size={"20px"} color={"rgb(3, 144, 252)"} />
               <input
                 type="input"
                 placeholder="time in minutes (optional)"
                 name="pumpTime"
+                inputMode="numeric"
+                pattern="[0-9]*"
                 value={record.pumpTime}
                 onChange={(e) => updateRecordState(e.target)}
                 style={{ margin: "0px 10px", display: "flex", flexGrow: 1 }}

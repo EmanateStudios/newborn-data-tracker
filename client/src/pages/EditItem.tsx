@@ -56,8 +56,7 @@ export function EditItem() {
       console.log(`SUCCESSFUL RECORD UPDATE`);
       setModalMessage("successfully updated record");
       setTitle("Success");
-      setAction(() => navigate("/Records"));
-      setModal(true);
+      setEditModal(true);
     },
   });
 
@@ -66,8 +65,7 @@ export function EditItem() {
       console.log(`SUCCESSFUL RECORD DELETION`);
       setModalMessage("successfully deleted record");
       setTitle("Success");
-      setAction(() => navigate("/Records"));
-      setModal(true);
+      setEditModal(true);
     },
   });
 
@@ -124,44 +122,17 @@ export function EditItem() {
   const handleDelete = (event: any) => {
     event.preventDefault();
     setModalMessage(
-      "there is no way to retrieve a record once deleted, are you sure you want to continue?"
+      "Once deleted this record is permanently lost. Are you sure you want to continue?"
     );
     setTitle("Warning");
-    setAction(() => {
-      deleteRecord({
-        variables: {
-          id,
-        },
-        update(cache, { data }) {
-          const { Record }: any = cache.readQuery({
-            query: GET_USER_RECORDS,
-            variables: {
-              id: user_id,
-            },
-          });
-
-          cache.writeQuery({
-            query: GET_USER_RECORDS,
-            data: {
-              Record: Record.filter(
-                (item: any) => item.id !== data.delete_Record_by_pk.id
-              ),
-            },
-            variables: {
-              id: user_id,
-            },
-          });
-        },
-      });
-    });
-    setModal(true);
+    setDeleteModal(true);
   };
 
-  const [modal, setModal] = useState(false);
+  const [editModal, setEditModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
   const [record, setRecord] = useState<record>(initialValues);
   const [modalMessage, setModalMessage] = useState("");
   const [title, setTitle] = useState("");
-  const [action, setAction] = useState(() => {});
 
   const updateRecordState = (update: any) => {
     const keyUpdate = update.name;
@@ -176,10 +147,45 @@ export function EditItem() {
 
   return (
     <>
+      {/* MODAL THAT GOES BACK TO RECORDS */}
       <Modal
-        state={modal}
-        setState={setModal}
-        action={action}
+        state={editModal}
+        setState={setEditModal}
+        action={() => navigate("/Records")}
+        title={title}
+        message={modalMessage}
+      />
+      {/* MODAL THAT DELETES THIS RECORD */}
+      <Modal
+        state={deleteModal}
+        setState={setDeleteModal}
+        action={() => {
+          deleteRecord({
+            variables: {
+              id,
+            },
+            update(cache, { data }) {
+              const { Record }: any = cache.readQuery({
+                query: GET_USER_RECORDS,
+                variables: {
+                  id: user_id,
+                },
+              });
+
+              cache.writeQuery({
+                query: GET_USER_RECORDS,
+                data: {
+                  Record: Record.filter(
+                    (item: any) => item.id !== data.delete_Record_by_pk.id
+                  ),
+                },
+                variables: {
+                  id: user_id,
+                },
+              });
+            },
+          });
+        }}
         title={title}
         message={modalMessage}
       />

@@ -1,5 +1,12 @@
 import { Route, Routes } from "react-router-dom";
-import { Login, AddItem, ExportOptions, Records, EditItem } from "./pages";
+import {
+  Login,
+  AddItem,
+  ExportOptions,
+  Records,
+  EditItem,
+  HomePage,
+} from "./pages";
 import { Navbar } from "./components/Navbar";
 
 function App() {
@@ -12,7 +19,8 @@ function App() {
         <Route path="/ExportOptions" element={<ExportOptions />} />
         <Route path="/Records" element={<Records />} />
         <Route path="/Login" element={<Login />} />
-        <Route path="*" element={<AddItem />} />
+        {/* this home page forwarding to /AddItem was a solution for github not opening our desired page correctly */}
+        <Route path="*" element={<HomePage />} />
       </Routes>
       <Navbar />
     </div>

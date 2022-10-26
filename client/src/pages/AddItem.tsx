@@ -1,8 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { GET_USER_RECORDS, INSERT_RECORD } from "../api/requests";
 import { record } from "../api/types";
 import { DateTime } from "luxon";
+import { Modal } from "../components/Modal";
+import { useNavigate } from "react-router-dom";
 // --- ICONS ---
 import { FiCalendar, FiWatch } from "react-icons/fi";
 import { FaPoo } from "react-icons/fa";
@@ -11,6 +13,8 @@ import { GiVomiting, GiChemicalTank } from "react-icons/gi";
 import { IoIosBeaker, IoIosTimer } from "react-icons/io";
 
 export function AddItem() {
+  const navigate = useNavigate();
+
   const currentDate = DateTime.now();
   const currentTime = DateTime.local();
 
@@ -19,8 +23,8 @@ export function AddItem() {
     {
       onCompleted: (completedData) => {
         console.log(`SUCCESSFUL RECORD INSERTION`);
-        console.log(completedData);
         setRecord(initialValues);
+        setModalState(true);
       },
     }
   );
@@ -96,8 +100,17 @@ export function AddItem() {
     });
   };
 
+  const [modalState, setModalState] = useState(false);
+  const message = "Successfully added a record.";
   return (
     <>
+      <Modal
+        state={modalState}
+        setState={setModalState}
+        title={"Success"}
+        action={() => navigate("/Records")}
+        message={message}
+      />
       <div className="contentContainer">
         <h1>Add Record</h1>
         <form onSubmit={handleSubmit}>

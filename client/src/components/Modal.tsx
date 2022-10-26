@@ -5,7 +5,7 @@ export function Modal({ message, state, setState, action, title }: any) {
 
   const cta = () => {
     if (action) {
-      console.log("taking action");
+      action();
       setState(false);
     } else {
       setState(false);
@@ -35,7 +35,7 @@ export function Modal({ message, state, setState, action, title }: any) {
             onClick={cta}
             style={{ padding: "8px 16px", fontSize: "large" }}
           >
-            confirm
+            continue
           </button>
         </div>
       </div>

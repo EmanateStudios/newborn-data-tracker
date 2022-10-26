@@ -7,7 +7,7 @@ import {
 } from "../api/requests";
 import { record } from "../api/types";
 import { DateTime } from "luxon";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Modal } from "../components/Modal";
 // --- ICONS ---
 import { FiCalendar, FiWatch } from "react-icons/fi";
@@ -17,8 +17,10 @@ import { GiVomiting, GiChemicalTank } from "react-icons/gi";
 import { IoIosBeaker, IoIosTimer } from "react-icons/io";
 
 export function EditItem() {
+  const navigate = useNavigate();
   // record id passed from params for edits and deletes
   const location = useLocation();
+
   const {
     id,
     date,
@@ -52,7 +54,20 @@ export function EditItem() {
   const [editRecord, { loading, data, error }] = useMutation(UPDATE_RECORD, {
     onCompleted: () => {
       console.log(`SUCCESSFUL RECORD UPDATE`);
-      // setRecord(initialValues);
+      setModalMessage("successfully updated record");
+      setTitle("Success");
+      setAction(() => navigate("/Records"));
+      setModal(true);
+    },
+  });
+
+  const [deleteRecord] = useMutation(DELETE_RECORD, {
+    onCompleted: () => {
+      console.log(`SUCCESSFUL RECORD DELETION`);
+      setModalMessage("successfully deleted record");
+      setTitle("Success");
+      setAction(() => navigate("/Records"));
+      setModal(true);
     },
   });
 
@@ -105,13 +120,48 @@ export function EditItem() {
       console.log("cannot find id");
     }
   };
-  const [modal, setModal] = useState(false);
+
   const handleDelete = (event: any) => {
     event.preventDefault();
+    setModalMessage(
+      "there is no way to retrieve a record once deleted, are you sure you want to continue?"
+    );
+    setTitle("Warning");
+    setAction(() => {
+      deleteRecord({
+        variables: {
+          id,
+        },
+        update(cache, { data }) {
+          const { Record }: any = cache.readQuery({
+            query: GET_USER_RECORDS,
+            variables: {
+              id: user_id,
+            },
+          });
+
+          cache.writeQuery({
+            query: GET_USER_RECORDS,
+            data: {
+              Record: Record.filter(
+                (item: any) => item.id !== data.delete_Record_by_pk.id
+              ),
+            },
+            variables: {
+              id: user_id,
+            },
+          });
+        },
+      });
+    });
     setModal(true);
   };
 
+  const [modal, setModal] = useState(false);
   const [record, setRecord] = useState<record>(initialValues);
+  const [modalMessage, setModalMessage] = useState("");
+  const [title, setTitle] = useState("");
+  const [action, setAction] = useState(() => {});
 
   const updateRecordState = (update: any) => {
     const keyUpdate = update.name;
@@ -126,7 +176,13 @@ export function EditItem() {
 
   return (
     <>
-      <Modal state={modal} setState={setModal} />
+      <Modal
+        state={modal}
+        setState={setModal}
+        action={action}
+        title={title}
+        message={modalMessage}
+      />
       <div className="contentContainer">
         <h1>Edit Record</h1>
         <form>

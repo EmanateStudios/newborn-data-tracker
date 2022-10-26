@@ -13,7 +13,7 @@ export function RecordBox(record: any) {
   });
 
   return (
-    <Link to={`/EditItem/${rec.id}`}>
+    <Link to={`/EditItem`} state={rec}>
       <div className="recordBox">
         <ul>
           <li>{`${rec.date.slice(5)}`}</li>

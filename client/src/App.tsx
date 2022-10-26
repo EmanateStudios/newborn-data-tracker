@@ -8,7 +8,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/AddItem" element={<AddItem />} />
-        <Route path="/EditItem/:id" element={<EditItem />} />
+        <Route path="/EditItem" element={<EditItem />} />
         <Route path="/ExportOptions" element={<ExportOptions />} />
         <Route path="/Records" element={<Records />} />
         <Route path="/Login" element={<Login />} />

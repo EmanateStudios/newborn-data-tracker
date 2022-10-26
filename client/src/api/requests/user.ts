@@ -16,6 +16,7 @@ export const GET_USER_RECORDS = gql`
       supplementType
       time
       void
+      user_id
       vomit_spitUp
     }
   }

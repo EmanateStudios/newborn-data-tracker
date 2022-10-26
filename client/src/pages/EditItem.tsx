@@ -1,8 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { GET_USER_RECORDS, INSERT_RECORD } from "../api/requests";
+import {
+  GET_USER_RECORDS,
+  UPDATE_RECORD,
+  DELETE_RECORD,
+} from "../api/requests";
 import { record } from "../api/types";
 import { DateTime } from "luxon";
+import { useLocation } from "react-router-dom";
+import { Modal } from "../components/Modal";
 // --- ICONS ---
 import { FiCalendar, FiWatch } from "react-icons/fi";
 import { FaPoo } from "react-icons/fa";
@@ -11,27 +17,52 @@ import { GiVomiting, GiChemicalTank } from "react-icons/gi";
 import { IoIosBeaker, IoIosTimer } from "react-icons/io";
 
 export function EditItem() {
-  const currentDate = DateTime.now();
-  const currentTime = DateTime.local();
+  // record id passed from params for edits and deletes
+  const location = useLocation();
+  const {
+    id,
+    date,
+    time,
+    leftBreast,
+    rightBreast,
+    vomit_spitUp,
+    pumpTime,
+    supplementQuantity,
+    supplementType,
+    user_id,
+    bowelMovement,
+  } = location.state as record;
 
-  const [addRecordToUser, { loading, data, error }] = useMutation(
-    INSERT_RECORD,
-    {
-      onCompleted: (completedData) => {
-        console.log(`SUCCESSFUL RECORD INSERTION`);
-        console.log(completedData);
-        setRecord(initialValues);
-      },
-    }
-  );
+  const datify = DateTime.fromFormat(`${date}`, "yyyy-MM-dd");
 
-  const handleSubmit = (event: any) => {
+  const initialValues: record = {
+    date: datify.toFormat("yyyy-MM-dd"),
+    time,
+    leftBreast,
+    rightBreast,
+    void: location.state.void,
+    vomit_spitUp,
+    pumpTime,
+    supplementQuantity,
+    supplementType,
+    user_id,
+    bowelMovement,
+  };
+
+  const [editRecord, { loading, data, error }] = useMutation(UPDATE_RECORD, {
+    onCompleted: () => {
+      console.log(`SUCCESSFUL RECORD UPDATE`);
+      // setRecord(initialValues);
+    },
+  });
+
+  const handleEdit = (event: any) => {
     event.preventDefault();
-    const userId = localStorage.getItem("id");
-    if (userId) {
-      addRecordToUser({
+    if (user_id) {
+      editRecord({
         variables: {
-          objects: {
+          id,
+          _set: {
             date: record.date,
             time: record.time.toLocaleString(DateTime.TIME_SIMPLE),
             leftBreast: record.leftBreast || 0,
@@ -41,7 +72,7 @@ export function EditItem() {
             pumpTime: record.pumpTime || 0,
             supplementQuantity: record.supplementQuantity || 0,
             supplementType: record.supplementType || "",
-            user_id: userId,
+            user_id: user_id,
             bowelMovement: record.bowelMovement || false,
           },
         },
@@ -49,17 +80,23 @@ export function EditItem() {
           const { Record }: any = cache.readQuery({
             query: GET_USER_RECORDS,
             variables: {
-              id: userId,
+              id: user_id,
             },
           });
 
           cache.writeQuery({
             query: GET_USER_RECORDS,
             data: {
-              Record: [data.insert_Record.returning[0], ...Record],
+              Record: Record.map((item: any) => {
+                if (item.id === data.update_Record_by_pk.id) {
+                  return data.update_Record_by_pk;
+                } else {
+                  return item;
+                }
+              }),
             },
             variables: {
-              id: userId,
+              id: user_id,
             },
           });
         },
@@ -68,19 +105,10 @@ export function EditItem() {
       console.log("cannot find id");
     }
   };
-
-  const initialValues: record = {
-    date: currentDate,
-    time: currentTime,
-    leftBreast: 0,
-    rightBreast: 0,
-    void: false,
-    vomit_spitUp: false,
-    pumpTime: 0,
-    supplementQuantity: 0,
-    supplementType: "",
-    user_id: "",
-    bowelMovement: false,
+  const [modal, setModal] = useState(false);
+  const handleDelete = (event: any) => {
+    event.preventDefault();
+    setModal(true);
   };
 
   const [record, setRecord] = useState<record>(initialValues);
@@ -98,9 +126,10 @@ export function EditItem() {
 
   return (
     <>
+      <Modal state={modal} setState={setModal} />
       <div className="contentContainer">
         <h1>Edit Record</h1>
-        <form onSubmit={handleSubmit}>
+        <form>
           {/*==================== DATE AND TIME ====================*/}
           <div
             className="cards"
@@ -127,7 +156,7 @@ export function EditItem() {
                 <input
                   type="date"
                   name="date"
-                  value={`${record.date.toFormat("yyyy-MM-dd")}`}
+                  value={`${record.date}`}
                   onChange={(e) => updateRecordState(e.target)}
                   style={{ width: "30vw" }}
                 />
@@ -145,9 +174,7 @@ export function EditItem() {
                 <input
                   type="time"
                   name="time"
-                  value={`${record.time.toLocaleString(
-                    DateTime.TIME_24_SIMPLE
-                  )}`}
+                  value={`${time}`}
                   onChange={(e) => updateRecordState(e.target)}
                   style={{ width: "30vw" }}
                 />
@@ -184,7 +211,7 @@ export function EditItem() {
                   backgroundColor: "white",
                 }}
               >
-                <BsFillDropletFill size={"25px"} color="rgb(153,163,34)" />
+                <BsFillDropletFill size={"25px"} color="rgb(209, 180, 50)" />
                 <input
                   type="checkbox"
                   name="void"
@@ -361,8 +388,14 @@ export function EditItem() {
             </div>
           </div>
           {/*==================== SUBMIT ====================*/}
-          <div style={{ textAlign: "center" }}>
-            <button>Submit</button>
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <button
+              onClick={handleDelete}
+              style={{ backgroundColor: "rgb(179, 43, 43" }}
+            >
+              Delete
+            </button>
+            <button onClick={handleEdit}>Submit</button>
           </div>
         </form>
       </div>

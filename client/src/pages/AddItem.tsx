@@ -70,7 +70,7 @@ export function AddItem() {
   };
 
   const initialValues: record = {
-    date: currentDate,
+    date: currentDate.toFormat("yyyy-MM-dd"),
     time: currentTime,
     leftBreast: 0,
     rightBreast: 0,
@@ -127,7 +127,7 @@ export function AddItem() {
                 <input
                   type="date"
                   name="date"
-                  value={`${record.date.toFormat("yyyy-MM-dd")}`}
+                  value={`${record.date}`}
                   onChange={(e) => updateRecordState(e.target)}
                   style={{ width: "30vw" }}
                 />

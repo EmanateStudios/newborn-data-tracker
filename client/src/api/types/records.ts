@@ -1,7 +1,5 @@
-import { DateTime } from "luxon";
-
 export interface record {
-  date: DateTime;
+  date: any;
   time: any;
   leftBreast?: number | undefined;
   rightBreast?: number | undefined;

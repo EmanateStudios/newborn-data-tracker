@@ -1,4 +1,4 @@
-export function Modal({ message, state, setState, action, title }: any) {
+export function Modal({ message, state, setState, action, title, leftButtonText, rightButtonText }: any) {
   const closeModal = () => {
     setState(false);
   };
@@ -11,6 +11,9 @@ export function Modal({ message, state, setState, action, title }: any) {
       setState(false);
     }
   };
+
+  const leftButton = leftButtonText || "cancel";
+  const rightButton = rightButtonText || "continue";
 
   return (
     <div className="modalContainer" style={state ? {} : { display: "none" }}>
@@ -27,15 +30,16 @@ export function Modal({ message, state, setState, action, title }: any) {
               padding: "8px 16px",
               fontSize: "large",
               backgroundColor: "gray",
+              marginRight:'6px'
             }}
           >
-            cancel
+            {leftButton}
           </button>
           <button
             onClick={cta}
             style={{ padding: "8px 16px", fontSize: "large" }}
           >
-            continue
+            {rightButton}
           </button>
         </div>
       </div>

@@ -156,6 +156,8 @@ export function EditItem() {
         action={() => navigate("/Records")}
         title={title}
         message={modalMessage}
+        leftButtonText={"Continue Editing"}
+        rightButtonText={"Continue to Records"}
       />
       {/* MODAL THAT DELETES THIS RECORD */}
       <Modal
@@ -483,19 +485,20 @@ export function EditItem() {
                   />
                 </div>
               </div>
+              {/*==================== SUBMIT ====================*/}
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <button
+                  onClick={handleDelete}
+                  style={{ backgroundColor: "rgb(179, 43, 43" }}
+                >
+                  Delete
+                </button>
+                <button onClick={handleEdit}>Submit</button>
+              </div>
             </>
           )}
 
-          {/*==================== SUBMIT ====================*/}
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <button
-              onClick={handleDelete}
-              style={{ backgroundColor: "rgb(179, 43, 43" }}
-            >
-              Delete
-            </button>
-            <button onClick={handleEdit}>Submit</button>
-          </div>
+
         </form>
       </div>
     </>

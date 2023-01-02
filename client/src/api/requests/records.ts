@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_ALL_RECORDS = gql`
-  query GetAllRecords($id: string) {
-    Record {
+  query GetAllRecords($id: uuid) {
+    Record(where: {User: {id: {_eq: $id}}}) {
       bowelMovement
       date
       id
@@ -13,6 +13,23 @@ export const GET_ALL_RECORDS = gql`
       supplementType
       time
       user_id
+      void
+      vomit_spitUp
+    }
+  }
+`;
+
+export const GET_RECORDS_FOR_DOWNLOAD = gql`
+  query GetRecordsForDownload($id:uuid) {
+    Record(where: {User: {id: {_eq: $id}}}) {
+      bowelMovement
+      date
+      leftBreast
+      pumpTime
+      rightBreast
+      supplementQuantity
+      supplementType
+      time
       void
       vomit_spitUp
     }

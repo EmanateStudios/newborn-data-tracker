@@ -116,6 +116,8 @@ export function AddItem() {
         title={"Success"}
         action={() => navigate("/Records")}
         message={message}
+        leftButtonText={"Add More"}
+        rightButtonText={"Continue to Records"}
       />
       <div className="contentContainer">
         <h1>Add Record</h1>
@@ -407,13 +409,14 @@ export function AddItem() {
                   />
                 </div>
               </div>
+              {/*==================== SUBMIT ====================*/}
+              <div style={{ textAlign: "center" }}>
+                <button>Submit</button>
+              </div>
             </>
           )}
 
-          {/*==================== SUBMIT ====================*/}
-          <div style={{ textAlign: "center" }}>
-            <button>Submit</button>
-          </div>
+
         </form>
       </div>
     </>

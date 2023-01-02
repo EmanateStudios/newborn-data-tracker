@@ -377,7 +377,7 @@ export function AddItem() {
                   <input
                     type="input"
                     placeholder="quantity in oz (optional)"
-                    inputMode="numeric"
+                    inputMode="decimal"
                     pattern="[0-9]*"
                     name="supplementQuantity"
                     value={record.supplementQuantity}

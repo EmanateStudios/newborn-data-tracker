@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 // icons
 import { TfiPlus, TfiExport, TfiRulerPencil } from "react-icons/tfi";
 import { BsFillPersonFill } from "react-icons/bs";
+import { SlGraph } from "react-icons/sl";
 
 export function Navbar() {
   return (
@@ -36,6 +37,18 @@ export function Navbar() {
             {({ isActive }) => {
               return (
                 <TfiExport
+                  size={"1.5rem"}
+                  color={isActive ? "rgba(19, 14, 46, 1.0)" : "silver"}
+                />
+              );
+            }}
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="Stats">
+            {({ isActive }) => {
+              return (
+                <SlGraph
                   size={"1.5rem"}
                   color={isActive ? "rgba(19, 14, 46, 1.0)" : "silver"}
                 />

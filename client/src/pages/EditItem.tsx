@@ -448,11 +448,11 @@ export function EditItem() {
                     marginBottom: "10px",
                   }}
                 >
-                  <p style={{ margin: "0px 10px" }}>Qty (ml)</p>
+                  <p style={{ margin: "0px 10px" }}>Qty (oz)</p>
                   <IoIosBeaker size={"20px"} color={"rgb(3, 144, 252)"} />
                   <input
                     type="input"
-                    placeholder="quantity in ml (optional)"
+                    placeholder="quantity in oz (optional)"
                     name="supplementQuantity"
                     inputMode="numeric"
                     pattern="[0-9]*"

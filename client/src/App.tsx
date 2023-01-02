@@ -6,6 +6,7 @@ import {
   Records,
   EditItem,
   HomePage,
+  Stats
 } from "./pages";
 import { Navbar } from "./components/Navbar";
 
@@ -17,6 +18,7 @@ function App() {
         <Route path="/AddItem" element={<AddItem />} />
         <Route path="/EditItem" element={<EditItem />} />
         <Route path="/ExportOptions" element={<ExportOptions />} />
+        <Route path="/Stats" element={<Stats />} />
         <Route path="/Records" element={<Records />} />
         <Route path="/Login" element={<Login />} />
         {/* this home page forwarding to /AddItem was a solution for github not opening our desired page correctly */}

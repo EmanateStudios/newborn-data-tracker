@@ -36,6 +36,23 @@ export const GET_RECORDS_FOR_DOWNLOAD = gql`
   }
 `;
 
+export const GET_RECORDS_FOR_STATS = gql`
+  query GetRecordsForStats($id: uuid,$today:date) {
+    Record(where: {User: {id: {_eq: $id}}, date: {_eq: $today}}) {
+      bowelMovement
+      date
+      leftBreast
+      pumpTime
+      rightBreast
+      supplementQuantity
+      supplementType
+      time
+      void
+      vomit_spitUp
+    }
+  }
+`;
+
 export const INSERT_RECORD = gql`
   mutation InsertRecord($objects: [Record_insert_input!]!) {
     insert_Record(objects: $objects) {

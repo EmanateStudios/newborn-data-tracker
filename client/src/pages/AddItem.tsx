@@ -378,7 +378,7 @@ export function AddItem() {
                     type="input"
                     placeholder="quantity in oz (optional)"
                     inputMode="decimal"
-                    pattern="[0-9]*"
+                    // pattern="[0-9]*"
                     name="supplementQuantity"
                     value={record.supplementQuantity}
                     onChange={(e) => updateRecordState(e.target)}
